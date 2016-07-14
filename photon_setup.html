@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		</head>
+	
+	
+		<body>
+			
+			<script type="text/javascript">
+				
+				var getOK = "checkConnection";
+				
+				$(document).ready(function() {
+					if(localStorage.getItem("device") != null && 
+					localStorage.getItem("access") != null) {
+						document.getElementById("access").value = localStorage.getItem("access");
+						document.getElementById("device").value = localStorage.getItem("device");
+						// check if values were previously submitted
+					}
+					
+				});
+				
+				
+				function test_connection() {
+					var deviceID = document.getElementById("device").value;
+					var accessToken = document.getElementById("access").value;
+					var requestURL = "https://api.spark.io/v1/devices/" + deviceID + "/" + getOK + "/?access_token=" + accessToken;
+					localStorage.setItem("device", deviceID);
+					localStorage.setItem("access", accessToken); // save values to localstorage
+					$.getJSON(requestURL, function(result) {
+						if(result == "ok") { // check if photon is connected through function
+							alert("connected!");
+						}
+						else {
+						alert("failed to connect");
+						}
+					});
+				}
+			</script>
+			<form action="passcode.html" method="get" >
+				<table>
+					<tr> <td> Access Token: </td> 
+					<td><input type="text" name="access_token" id="access"></td></tr>
+				<br>
+				<tr><td>DeviceID: </td>
+				<td><input type="text" name="deviceID" id="device" ></td></tr>
+				<br>
+				</table>
+				
+				<br>
+			<input type="submit" value="proceed to next page">	
+				
+			</form>
+			<br>
+			<button onclick="test_connection()">Test Connection</button>
+		</body>
+		
+		
+	</html>
+	
+	

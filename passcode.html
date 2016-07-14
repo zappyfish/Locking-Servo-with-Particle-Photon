@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			
+			<link rel="stylesheet" type="text/css" href="passcode.css">
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+			
+		</head>
+		
+		
+		<body>
+		<h1 style="text-align:center;"> Please enter 4-digit code </h1>
+		<table style="margin-left:auto;margin-right:auto;">
+			<tr>
+				<td class="number"> <button onclick="addNum(this.innerHTML)" 
+				class="numButton" type = "button">1</button> </td>
+				<td class="number"> <button onclick="addNum(this.innerHTML)"
+				class="numButton" type = "button">2</button> </td>
+				<td class="number"> <button onclick="addNum(this.innerHTML)"
+				class="numButton" type = "button">3</button> </td>
+			</tr>
+			<tr>
+				<td class="number"> <button onclick="addNum(this.innerHTML)" 
+				class="numButton" type = "button">4</button> </td>
+				<td class="number"> <button onclick="addNum(this.innerHTML)" 
+				class="numButton" type = "button">5</button> </td>
+				<td class="number"> <button onclick="addNum(this.innerHTML)"
+				class="numButton" type = "button">6</button> </td>
+			</tr>
+			<tr>
+				<td class="number"> <button onclick="addNum(this.innerHTML)"
+				class="numButton" type = "button">7</button> </td>
+				<td class="number"> <button onclick="addNum(this.innerHTML)" 
+				class="numButton" type = "button">8</button> </td>
+				<td class="number"> <button onclick="addNum(this.innerHTML)" 
+				class="numButton" type = "button">9</button> </td>
+			</tr>
+		</table>
+		<div style="text-align:center;">
+		<button style = "margin-left:auto;margin-right:auto;margin-top:20px;font-size:80px;" onclick="relock()"> Re-lock </button>
+		</div>
+		
+		<script>
+			var passcode = "";
+			var myCode = "1234"; // set your password here
+			var deviceID;
+			var accessToken;
+			var setFunc = "setpos"; // set position of servo
+			
+			$(document).ready(function() {
+			if(localStorage.getItem("device") != null && 
+					localStorage.getItem("access") != null) {
+						accessToken = localStorage.getItem("access"); // get values from previous form
+						deviceID = localStorage.getItem("device");
+						
+					}
+					
+			
+			});
+		
+			function addNum(num) {
+				passcode+=num; // add button number to passcode
+				if(passcode.length >= 4) { // once four numbers are entered, check if correct
+					if(passcode == myCode) {
+					alert("success!");
+					correctPassword(); // turn the servo if correct
+					}
+					else {
+					passcode = "";
+					alert("wrong code");
+					}
+				}
+			}
+			function correctPassword() {
+			// turn the servo
+				var newValue = 0;
+				var requestURL = "https://api.spark.io/v1/devices/" +deviceID + "/" + setFunc + "/";
+				$.post( requestURL, { params: newValue, access_token: accessToken });
+			}
+			
+			function relock() {
+				var newValue = 90;
+				var requestURL = "https://api.spark.io/v1/devices/" +deviceID + "/" + setFunc + "/";
+				$.post( requestURL, { params: newValue, access_token: accessToken });
+				
+			}
+			
+			
+		</script>
+		
+		</body>
+	</html>
