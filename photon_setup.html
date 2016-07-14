@@ -9,7 +9,7 @@
 			
 			<script type="text/javascript">
 				
-				var getOK = "checkConnection";
+				var getOK = "checkConnect";
 				
 				$(document).ready(function() {
 					if(localStorage.getItem("device") != null && 
@@ -29,7 +29,7 @@
 					localStorage.setItem("device", deviceID);
 					localStorage.setItem("access", accessToken); // save values to localstorage
 					$.getJSON(requestURL, function(result) {
-						if(result == "ok") { // check if photon is connected through function
+						if(result == 1) { // check if photon is connected through function
 							alert("connected!");
 						}
 						else {
