@@ -73,13 +73,13 @@
 			}
 			function correctPassword() {
 			// turn the servo
-				var newValue = "0";
+				var newValue = "90";
 				var requestURL = "https://api.spark.io/v1/devices/" +deviceID + "/" + setFunc + "/";
 				$.post( requestURL, { params: newValue, access_token: accessToken });
 			}
 			
 			function relock() {
-				var newValue = "90"";
+				var newValue = "180";
 				var requestURL = "https://api.spark.io/v1/devices/" +deviceID + "/" + setFunc + "/";
 				$.post( requestURL, { params: newValue, access_token: accessToken });
 				

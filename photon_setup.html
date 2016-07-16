@@ -28,8 +28,8 @@
 					var requestURL = "https://api.spark.io/v1/devices/" + deviceID + "/" + getOK + "/?access_token=" + accessToken;
 					localStorage.setItem("device", deviceID);
 					localStorage.setItem("access", accessToken); // save values to localstorage
-					$.getJSON(requestURL, function(result) {
-						if(result == 1) { // check if photon is connected through function
+					$.getJSON(requestURL, function(json) {
+						if(json.result == 1) { // check if photon is connected through function
 							alert("connected!");
 						}
 						else {
@@ -38,7 +38,7 @@
 					});
 				}
 			</script>
-			<form action="passcode.html" method="get" >
+			<form action="passcode.html" method="GET" >
 				<table>
 					<tr> <td> Access Token: </td> 
 					<td><input type="text" name="access_token" id="access"></td></tr>

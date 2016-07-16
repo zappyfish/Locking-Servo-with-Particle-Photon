@@ -1,10 +1,11 @@
 Servo myservo;
 
 int pos = 0;
+int connect = 1;
 
 void setup() {
 	myservo.attach(0);
-	Spark.function("checkConnect", checkConnection);
+	Spark.function("checkConnect", &connect, INT);
 	Spark.function("setpos", setPosition);
 
 }
@@ -12,9 +13,7 @@ void setup() {
 void loop() {
 
 }
-int checkConnect(String garbage) {
-	return 1;
-}
+
 
 int setPosition(String myPos) {
 	pos = myPos.toInt();
